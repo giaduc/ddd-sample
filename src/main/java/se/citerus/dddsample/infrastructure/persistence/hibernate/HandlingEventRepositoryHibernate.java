@@ -13,18 +13,15 @@ import se.citerus.dddsample.domain.model.handling.HandlingHistory;
 @Repository
 public class HandlingEventRepositoryHibernate extends HibernateRepository implements HandlingEventRepository {
 
-  @Override
-  public void store(final HandlingEvent event) {
-    getSession().save(event);
-  }
+	@Override
+	public void store(final HandlingEvent event) {
+		getSession().save(event);
+	}
 
-  @Override
-  public HandlingHistory lookupHandlingHistoryOfCargo(final TrackingId trackingId) {
-    return new HandlingHistory(getSession().createQuery(
-            "from HandlingEvent where cargo.trackingId = :tid").
-            setParameter("tid", trackingId).
-            list()
-    );
-  }
+	@Override
+	public HandlingHistory lookupHandlingHistoryOfCargo(final TrackingId trackingId) {
+		return new HandlingHistory(getSession().createQuery("from HandlingEvent where cargo.trackingId = :tid")
+				.setParameter("tid", trackingId).list());
+	}
 
 }
